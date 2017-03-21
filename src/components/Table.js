@@ -73,7 +73,7 @@ class Table extends Component {
     return (
       <div>
         {this.state.dealerHand ? <Hand cards={this.state.dealerHand}/> : []}
-        <Score createDeck={this.createDeck} hitDeck={this.hitDeck}/>
+        <Score deck={this.state.deck} createDeck={this.createDeck} hitDeck={this.hitDeck}/>
         {this.state.playerHand ? <Hand cards={this.state.playerHand} /> : []}
       </div>
     );

@@ -9,7 +9,7 @@ class Score extends React.Component {
   	return(
   	  <div>
   	    <button onClick={this.props.createDeck}>Deal</button>
-        <button onClick={this.props.hitDeck}>Hit</button>
+        {this.props.deck.length ? <button onClick={this.props.hitDeck}>Hit</button> : ''}
   	  </div>
   	)
   }

@@ -14,6 +14,7 @@ class Table extends Component {
   	this.createDeck = this.createDeck.bind(this);
   	this.shuffleDeck = this.shuffleDeck.bind(this);
   	this.dealCards = this.dealCards.bind(this);
+  	this.hitDeck = this.hitDeck.bind(this);
   }
 
   createDeck() {
@@ -59,14 +60,21 @@ class Table extends Component {
   	  dealerHand: dealerHand,
   	  playerHand: playerHand
   	});
+
+  }
+  hitDeck() {
+    let card = this.state.deck.shift();
+	let playerHand = this.state.playerHand;
+	playerHand.push(card);
+	this.setState({playerHand: playerHand});
   }
 
   render() {
     return (
       <div>
-        {this.state.dealerHand ? this.state.dealerHand.map((card, index) => <Hand suite={card['suite']} number={card['number']}/>) : []}
-        <Score createDeck={this.createDeck}/>
-        {this.state.playerHand ? this.state.playerHand.map((card, index) => <Hand suite={card['suite']} number={card['number']}/>) : []}
+        {this.state.dealerHand ? <Hand cards={this.state.dealerHand}/> : []}
+        <Score createDeck={this.createDeck} hitDeck={this.hitDeck}/>
+        {this.state.playerHand ? <Hand cards={this.state.playerHand} /> : []}
       </div>
     );
   }

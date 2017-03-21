@@ -10,7 +10,7 @@ class Hand extends React.Component {
   render(){
   	return(
   	  <div>
-  	    <Card suite={this.props.suite} number={this.props.number}/>
+        {this.props.cards.map((card, index) => <Card suite={card['suite']} number={card['number']} key={index}/>)}
   	  </div>
   	)
   }

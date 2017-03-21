@@ -15,6 +15,7 @@ class Table extends Component {
   	this.shuffleDeck = this.shuffleDeck.bind(this);
   	this.dealCards = this.dealCards.bind(this);
   	this.hitDeck = this.hitDeck.bind(this);
+  	this.calulateScore = this.calulateScore.bind(this);
   }
 
   createDeck() {
@@ -59,14 +60,59 @@ class Table extends Component {
   	  deck: shuffled,
   	  dealerHand: dealerHand,
   	  playerHand: playerHand
+  	}, () => {
+  	  this.calulateScore();
   	});
-
   }
+
   hitDeck() {
     let card = this.state.deck.shift();
 	let playerHand = this.state.playerHand;
 	playerHand.push(card);
-	this.setState({playerHand: playerHand});
+	this.setState({playerHand: playerHand}, () => {
+	  this.calulateScore();
+	});
+  }
+
+  calulateScore() {
+  	let playerScore = 0;
+  	let dealerScore;
+  	let playerHand = this.state.playerHand;
+  	let dealerHand = this.state.dealerHand;
+  	for (var i = 0; i < playerHand.length; i++) {
+  	  console.log(playerHand[i].number);
+  	  if (playerHand[i].number === 'K' || playerHand[i].number === 'Q' || playerHand[i].number === 'J') {
+  	  	playerScore+=10
+  	  } else if (playerHand[i].number === 'A') {
+  	  	if(playerScore + 11 > 21) {
+  	  	  playerScore+=11;
+  	  	} else {
+  	  	  playerScore+=1;
+  	  	}
+  	  } else {
+  	  	playerScore+=playerHand[i].number;
+  	  } 
+  	}
+  	for (var i = 0; i < dealerHand.length; i++) {
+  	  if (dealerHand[i]['number'] === 'K' || dealerHand[i]['number'] === 'Q' || dealerHand[i]['number'] === 'J') {
+  	  	dealerScore+=10
+  	  } else if (dealerHand[i]['number'] === 'A') {
+  	  	if(dealerScore + 11 > 21) {
+  	  	  playerScore+=11;
+  	  	} else {
+  	  	  dealerScore+=1;
+  	  	}
+  	  } else {
+  	  	dealerScore+=dealerHand[i]['number'];
+  	  } 
+  	}
+  	console.log(playerScore);
+  	if(playerScore === 21) {
+  	  console.log('PLAYER WINS')
+  	}
+  	if(dealerScore === 21) {
+  	  console.log('DEALER WINS');
+  	}
   }
 
   render() {

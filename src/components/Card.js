@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './../css/Table.css';
-import Card from './Card';
 
-class Hand extends React.Component {
+class Card extends React.Component {
   constructor(props) {
   	super(props);
   }
   render(){
   	return(
-  	  <div>
-  	    <Card suite={this.props.suite} number={this.props.number}/>
+  	  <div className='card'>
+  	    <h1>{this.props.suite}</h1>
+        <h3>{this.props.number}</h3>
   	  </div>
   	)
   }
 }
 
-export default Hand;
+export default Card;

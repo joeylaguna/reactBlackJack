@@ -8,7 +8,7 @@ class Score extends React.Component {
   render(){
   	return(
   	  <div>
-  	    <h1>In score</h1>
+  	    <button>Deal</button>
   	  </div>
   	)
   }

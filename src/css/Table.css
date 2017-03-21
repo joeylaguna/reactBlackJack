@@ -22,3 +22,11 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.card {
+  width: 15em;
+  height: 16em;
+  border-radius: 22px;
+  text-align: center;
+  border: 1px solid;
+}

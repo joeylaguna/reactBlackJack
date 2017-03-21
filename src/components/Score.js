@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './../css/Table.css';
 
 class Score extends React.Component {
-  constructor() {
-  	super();
+  constructor(props) {
+  	super(props);
   }
   render(){
   	return(
   	  <div>
-  	    <button>Deal</button>
+  	    <button onClick={this.props.createDeck}>Deal</button>
   	  </div>
   	)
   }

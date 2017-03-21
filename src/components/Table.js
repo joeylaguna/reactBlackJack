@@ -7,10 +7,15 @@ class Table extends Component {
   constructor(){
   	super();
   	this.state = {
-  	  deck: []
+  	  deck: [],
+  	  dealerHand: [],
+  	  playerHand: []
   	}
   	this.createDeck = this.createDeck.bind(this);
+  	this.shuffleDeck = this.shuffleDeck.bind(this);
+  	this.dealCards = this.dealCards.bind(this);
   }
+
   createDeck() {
   	let deck = [];
   	let suites = ['H', 'C', 'D', 'S'];
@@ -23,20 +28,45 @@ class Table extends Component {
   	  	deck.push(card);
   	  }
   	}
-  	this.setState({
-  	  deck: deck
+  	this.shuffleDeck(deck);
+  }
+
+  shuffleDeck(deck) {
+  	let shuffled = [];
+  	let length = deck.length;
+  	while(length !== 0) {
+  	  let randomIndex = Math.floor(Math.random()*length);
+  	  shuffled.push(deck[randomIndex]);
+  	  deck.splice(randomIndex, 1);
+  	  length--;
+  	}
+  	this.setState({deck: shuffled}, () => {
+  	  this.dealCards(shuffled)
   	});
   }
 
-  componentWillMount(){
-    this.createDeck();
+  dealCards(shuffled) {
+  	let dealerHand = [];
+  	dealerHand.push(this.state.deck.shift());
+  	dealerHand.push(this.state.deck.shift());
+
+  	let playerHand = [];
+	playerHand.push(this.state.deck.shift());
+  	playerHand.push(this.state.deck.shift());
+
+  	this.setState({
+  	  deck: shuffled,
+  	  dealerHand: dealerHand,
+  	  playerHand: playerHand
+  	});
   }
 
   render() {
     return (
       <div>
-        {this.state.deck.map((card, index) => <Hand suite={card['suite']} number={card['number']}/>)}
-        <Score/>
+        {this.state.dealerHand ? this.state.dealerHand.map((card, index) => <Hand suite={card['suite']} number={card['number']}/>) : []}
+        <Score createDeck={this.createDeck}/>
+        {this.state.playerHand ? this.state.playerHand.map((card, index) => <Hand suite={card['suite']} number={card['number']}/>) : []}
       </div>
     );
   }

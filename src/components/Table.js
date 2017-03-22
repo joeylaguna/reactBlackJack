@@ -22,7 +22,6 @@ class Table extends Component {
   	this.stand = this.stand.bind(this);
   	this.checkIfDealerHits = this.checkIfDealerHits.bind(this);
   	this.dealerHitDeck = this.dealerHitDeck.bind(this);
-  	this.checkForBust = this.checkForBust.bind(this);
   }
 
   createDeck() {
@@ -75,10 +74,10 @@ class Table extends Component {
     let card = this.state.deck.shift();
   	let playerHand = this.state.playerHand;
   	playerHand.push(card);
-  	this.setState({playerHand: playerHand}, () => {
-  	  this.checkForBust();
-  	});
-  }
+  	this.setState({
+      playerHand: playerHand
+    });
+  };
 
   dealerHitDeck() {
   	let card = this.state.deck.shift();
@@ -159,13 +158,6 @@ class Table extends Component {
   	  this.setState({
   	  	winner: 'Dealer'
   	  });
-  	}
-  }
-
-  checkForBust() {
-  	let playerScore = this.calulatePlayerScore();
-  	if(playerScore > 21) {
-  	  console.log('BUST');
   	}
   }
 

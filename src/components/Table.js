@@ -73,11 +73,11 @@ class Table extends Component {
 
   hitDeck() {
     let card = this.state.deck.shift();
-	let playerHand = this.state.playerHand;
-	playerHand.push(card);
-	this.setState({playerHand: playerHand}, () => {
-	  this.checkForBust();
-	})
+  	let playerHand = this.state.playerHand;
+  	playerHand.push(card);
+  	this.setState({playerHand: playerHand}, () => {
+  	  this.checkForBust();
+  	});
   }
 
   dealerHitDeck() {
@@ -94,7 +94,6 @@ class Table extends Component {
   	let dealerHand = this.state.dealerHand;
   	for (var i = 0; i < dealerHand.length; i++) {
   	  if (dealerHand[i].number === 'K' || dealerHand[i].number === 'Q' || dealerHand[i].number === 'J') {
-  	  	console.log(dealerHand[i].number);
   	  	dealerScore+=10
   	  } else if (dealerHand[i].number === 'A') {
   	  	if(dealerScore + 11 > 21) {
@@ -125,7 +124,6 @@ class Table extends Component {
   	  	playerScore+=playerHand[i].number;
   	  } 
   	}
-  	console.log(playerScore);
   	return playerScore;
   }
 
